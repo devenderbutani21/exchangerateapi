@@ -1,16 +1,6 @@
-# exchangerateap
+# Currecncy Converter with API
 
-A new Flutter application.
+## Demo of the app
 
-## Getting Started
+![Android Emulator - Pixel_4_XL_API_29_5554 2021-03-03 21-03-37](https://user-images.githubusercontent.com/19952341/109899873-7ebfb980-7c64-11eb-8197-09c3c674b603.gif)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
