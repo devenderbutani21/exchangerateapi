@@ -101,18 +101,32 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: 50,
                     ),
-                    Material(
-                      child: MaterialButton(
-                        child: Text('Get Conversion'),
-                        color: Colors.orangeAccent,
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      child: ElevatedButton(
                         onPressed: () {
-                          if(_valueController.text.isNotEmpty) {
+                          if (_valueController.text.isNotEmpty) {
                             setState(() {
-                              _value = _exchangeValue.rates["${dropdownValue}"] *
-                                  int.parse(_valueController.text);
+                              _value =
+                                  _exchangeValue.rates["${dropdownValue}"] *
+                                      int.parse(_valueController.text);
                             });
                           }
                         },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.orangeAccent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          elevation: 15.0,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Text(
+                            'Get Conversion',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(
