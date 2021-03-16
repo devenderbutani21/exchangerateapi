@@ -9,13 +9,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController _valueController = TextEditingController();
-  TextEditingController _conversionController = TextEditingController();
-  TextEditingController _conversionController2 = TextEditingController();
   Future<Exchangevalue> exchangeValue;
-  String myText = "";
-  String dropdownValue = 'One';
   double _value = 0;
-  String base = "USD";
+  String base = "GBP";
+  String dropdownValue = "USD";
+  List<String> curr1, curr2;
 
   @override
   void initState() {
@@ -40,13 +38,14 @@ class _HomeScreenState extends State<HomeScreen> {
               (BuildContext context, AsyncSnapshot<Exchangevalue> snapshot) {
             if (snapshot.hasData) {
               Exchangevalue _exchangeValue = snapshot.data;
+              curr1 = _exchangeValue.rates.keys.toList();
               return Container(
                 height: double.infinity,
                 width: double.infinity,
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 100,
+                      height: 50,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -60,47 +59,61 @@ class _HomeScreenState extends State<HomeScreen> {
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.red)),
-                              hintText: "Value",
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: 100,
-                          width: 100,
-                          child: TextField(
-                            controller: _conversionController,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.red)),
-                              hintText: "Currency 1",
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: 100,
-                          width: 100,
-                          child: TextField(
-                            controller: _conversionController2,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.red)),
-                              hintText: "Currency 2",
+                              hintText: "Val",
                             ),
                           ),
                         ),
                       ],
                     ),
-                    MaterialButton(
-                      child: Text('Get Conversion'),
-                      color: Colors.orangeAccent,
-                      onPressed: () {
-                        setState(() {
-                          base = _conversionController2.text;
-                          myText = _conversionController.text;
-                          _value = _exchangeValue.rates["${myText}"] *
-                              int.parse(_valueController.text);
-                        });
-                      },
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        DropdownButton<String>(
+                          value: base,
+                          items: curr1.map((String value) {
+                            return DropdownMenuItem<String>(
+                              child: Text(value),
+                              value: value,
+                            );
+                          }).toList(),
+                          onChanged: (String newValue) {
+                            setState(() {
+                              base = newValue;
+                            });
+                          },
+                        ),
+                        DropdownButton<String>(
+                          value: dropdownValue,
+                          items: curr1.map((String value) {
+                            return DropdownMenuItem<String>(
+                              child: Text(value),
+                              value: value,
+                            );
+                          }).toList(),
+                          onChanged: (String newValue) {
+                            setState(() {
+                              dropdownValue = newValue;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    Material(
+                      child: MaterialButton(
+                        child: Text('Get Conversion'),
+                        color: Colors.orangeAccent,
+                        onPressed: () {
+                          if(_valueController.text.isNotEmpty) {
+                            setState(() {
+                              _value = _exchangeValue.rates["${dropdownValue}"] *
+                                  int.parse(_valueController.text);
+                            });
+                          }
+                        },
+                      ),
                     ),
                     SizedBox(
                       height: 25,
