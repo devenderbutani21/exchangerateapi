@@ -21,6 +21,23 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  Widget dropDownMenuWidget(String myValue) {
+    return DropdownButton<String>(
+      value: myValue,
+      items: curr1.map((String value) {
+        return DropdownMenuItem<String>(
+          child: Text(value),
+          value: value,
+        );
+      }).toList(),
+      onChanged: (String newValue) {
+        setState(() {
+          myValue = newValue;
+        });
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,34 +85,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        DropdownButton<String>(
-                          value: base,
-                          items: curr1.map((String value) {
-                            return DropdownMenuItem<String>(
-                              child: Text(value),
-                              value: value,
-                            );
-                          }).toList(),
-                          onChanged: (String newValue) {
-                            setState(() {
-                              base = newValue;
-                            });
-                          },
-                        ),
-                        DropdownButton<String>(
-                          value: dropdownValue,
-                          items: curr1.map((String value) {
-                            return DropdownMenuItem<String>(
-                              child: Text(value),
-                              value: value,
-                            );
-                          }).toList(),
-                          onChanged: (String newValue) {
-                            setState(() {
-                              dropdownValue = newValue;
-                            });
-                          },
-                        ),
+                        dropDownMenuWidget(base),
+                        dropDownMenuWidget(dropdownValue),
                       ],
                     ),
                     SizedBox(
